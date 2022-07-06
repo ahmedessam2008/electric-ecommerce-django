@@ -1,0 +1,11 @@
+:root {
+  --primary: #333;
+  --secondary: #15161d;
+  --header-bg: var(--secondary);
+}
+
+#header {
+  
+  padding: 3px 15px;
+  background: var(--header-bg);
+}

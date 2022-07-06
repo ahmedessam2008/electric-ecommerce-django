@@ -1,0 +1,29 @@
+<!-- NAVIGATION -->
+<nav id="navigation">
+	<!-- container -->
+	<div class="container">
+		<!-- responsive-nav -->
+		<div id="responsive-nav">
+			<!-- NAV -->
+			<ul class="main-nav nav navbar-nav">
+				<li class="active"><a href="{% url 'index' %}">Home</a></li>
+				<li><a href="{% url "store" %}">Products</a></li>
+				{% if request.user and not request.user.is_anonymous %}
+				<li><a href="{% url "profile" %}">Profile({{request.user.username}})</a></li>
+				<li><a href="{% url 'favorites' %}">Favorites</a></li>
+				{% else %}
+				<li><a href="{% url "signin" %}">Sign In</a></li>
+				<li><a href="{% url "signup" %}">Sign Up</a></li>
+				{% endif %}
+				<li><a href="{% url 'store' %}">Accessories</a></li>
+				{% if request.user and not request.user.is_anonymous %}
+				<li><a href="{% url "logout" %}">Logout</a></li>
+				{% endif %}
+			</ul>
+			<!-- /NAV -->
+		</div>
+		<!-- /responsive-nav -->
+	</div>
+	<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->

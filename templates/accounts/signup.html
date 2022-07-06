@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %} {{request.user.username}} | Sign up {% endblock %}
+{% block content %}
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<div class="col-md-7">
+				<!-- Billing Details -->
+				<div class="billing-details">
+					<div class="section-title">
+						<h3 class="title">Billing address</h3>
+					</div>
+					
+					{% if is_added == True %}
+					<span>{% include "parts/messages.html" %}<a class="btn btn-danger" href="{% url "store" %}"> Shop Now</a></span>
+					<form method="POST" style="display:none;">
+					{% else %}
+					<form id="signup-form" method="POST">
+					{% endif %}
+						{% csrf_token %}
+						<div class="form-group">
+							<input class="input" type="text" name="firstname" placeholder="First Name" value={{firstname}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="lastname" placeholder="Last Name" value={{lastname}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="username" placeholder="User Name" value={{username}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="password" name="password" placeholder="Password" value={{password}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="email" name="email" placeholder="Email" value={{email}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="address" placeholder="Address" value={{address}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="city" placeholder="City" value={{city}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="country" placeholder="Country" value={{country}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="zipcode" placeholder="ZIP Code" value={{zipcode}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="tel" name="tel" placeholder="Telephone" value={{tel}}>
+						</div>
+						<button type="submit" name="signup" class="btn btn-danger">Sign Up >></button>
+					</form>
+				</div>
+				<!-- /Billing Details -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- to clear form input fields when back -->
+
+{% endblock %}

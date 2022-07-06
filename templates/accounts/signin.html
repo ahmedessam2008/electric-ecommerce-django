@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %} {{request.user.username}} | Sign in {% endblock %}
+{% block content %}
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<div class="col-md-7">
+				<!-- Billing Details -->
+				<div class="billing-details">
+					<div class="section-title">
+						<h3 class="title">Billing address</h3>
+					</div>
+					{% include "parts/messages.html" %}
+					{% if request.user and not request.user.is_anonymous %}
+					<h5>Wlcome "{{ request.user.username }}" are you ready to <a class="btn btn-success" href="{% url "store" %}">shoping</a> or <a class="btn btn-danger" href="{% url "logout" %}">logout</a></h5>
+					<form method="POST" style="display:none;">
+					{% else %}
+					<form method="POST">
+					{% endif %}
+						{% csrf_token %}
+						<div class="form-group">
+							<input class="input" type="text" name="username" placeholder="User Name">
+						</div>
+						<div class="form-group">
+							<input class="input" type="password" name="password" placeholder="Password">
+						</div>
+						<div class="form-group">
+							<input class="check-box" type="checkbox" name="remember" checked>
+							<label>Remember me</label>
+						</div>
+						<button type="submit" name="signin" class="btn btn-danger">Sign In Now</button>
+					</form>
+				</div>
+				<!-- /Billing Details -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+{% endblock %}

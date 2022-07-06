@@ -1,0 +1,16 @@
+{% extends 'admin/base.html' %}
+{% block title %}Electric | Administration{% endblock %}
+{% load static %}
+
+{% block branding %}
+<div id="header">
+  <div id="branding">
+    <h1><img style="width: 85px;height: 46px;transform: scale(1.4);" src="{% static './img/8.png' %}" alt="">
+     Administration</h1>
+  </div>
+</div>
+{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}

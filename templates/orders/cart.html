@@ -1,0 +1,53 @@
+{% extends "base.html" %} 
+{% block title %} | Cart{% endblock %} 
+{% block content %}
+<!-- SECTION -->
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    {% include "parts/messages.html" %}
+    <!-- row -->
+    <div class="row">
+      {% if order %}
+      <h4> Full Name: {{ request.user.first_name|add:' '|add:request.user.last_name }}</h4>
+      <hr>
+      Order number {{ order.id }} with total: {{ total }}
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product</th>
+            <th scope="col">Image</th>
+            <th scope="col">Price</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for line in orderdetails %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ line.product.title }}</td>
+            <td><img src="{{ line.product.productimage0.url }}" style="width:50px;height:50px;" alt="{{ line.product.title }}" /></td>
+            <td>{{ line.new_price }}</td>
+            <td>
+              <a href="{% url 'increase_qty' line.id %}" class="btn btn-warning">+</a>
+              {{ line.quantity }}
+							<a href="{% url 'decrease_qty' line.id %}" class="btn btn-warning">-</a>
+            </td>
+            <td style="font-weight:bold;color:darkred;">{% widthratio line.quantity 1 line.new_price %} $</td>
+            <td>
+              <a href="{% url "remove_orderdetails" line.id %}" class="btn btn-danger btn-sm">Remove</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table> 
+      {% else %}
+      <h3>No Orders here <a href="{% url "store" %}">Shop Now</a></h3>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

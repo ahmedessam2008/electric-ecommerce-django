@@ -1,0 +1,134 @@
+{% extends "base.html" %} 
+{% block title %} | Cart{% endblock %} 
+{% block content %}
+
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			{% include 'parts/messages.html' %}
+			{% if not request.user.is_authenticated or request.user.is_anonymous %}
+			<h2 class="alert alert-warning text-center">You Must Be Login, <a href="{% url 'signin' %}">Login Now...</a></h2>
+			{% elif order %} 
+			<form method="POST">
+				{% csrf_token %}
+				<div class="col-md-7">
+					<!-- Billing Details -->
+					<div class="billing-details">
+						<div class="section-title">
+							<h3 class="title">Billing address</h3>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="firstname" placeholder="First Name" value={{request.user.first_name}} disabled>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="lastname" placeholder="Last Name" value={{request.user.last_name}} disabled>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="address" placeholder="Address" value={{address}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="tel" name="tel" placeholder="Telephone" value={{tel}}>
+						</div>
+					</div>
+					<!-- /Billing Details -->
+				</div>
+				<!-- Order Details -->
+				<div class="col-md-5 order-details">
+					<div class="section-title text-center">
+						<h3 class="title">Your Order</h3>
+					</div>
+					<div class="order-summary">
+						<div class="order-col">
+							<div><strong>PRODUCT</strong></div>
+							<div><strong>TOTAL</strong></div>
+						</div>
+						<div class="order-products">
+							{% for line in orderdetails %}
+							<div class="order-col">
+								<div>{{line.product.title}}</div>
+								<div style="font-weight:bold;color:darkred;">${% widthratio line.quantity 1 line.new_price %}</div>
+							</div>
+							{% endfor %}
+						</div>
+						<div class="order-col">
+							<div>Shiping</div>
+							<div><strong>FREE</strong></div>
+						</div>
+						<div class="order-col">
+							<div><strong>TOTAL</strong></div>
+							<div><strong class="order-total">${{total}}</strong></div>
+						</div>
+					</div>
+					<div class="payment-method">
+						<div class="input-radio">
+							<input type="radio" name="payment" id="payment-1" value="bank">
+							<label for="payment-1">
+								<span></span>
+								Direct Bank Transfer
+							</label>
+							<div class="caption">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							</div>
+						</div>
+						<div class="input-radio">
+							<input type="radio" name="payment" id="payment-2" value="paypal">
+							<label for="payment-2">
+								<span></span>
+								Paypal
+							</label>
+							<div class="caption">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							</div>
+						</div>
+						<div class="input-radio">
+							<input type="radio" name="payment" id="payment-3" value="credit">
+							<label for="payment-3">
+								<span></span>
+								Paypal System
+							</label>
+							<div class="caption">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<div>===================</div>
+								<!-- Card Details -->
+								
+								<div>
+									<label for="card_number">Card Number</label>
+									<input name="card_number" type="number" id="card_number" class="checkout_input" placeholder="0000 0000 0000 0000"/>
+								</div>
+								<hr>
+								<div>
+									<label for="expired">Expired<label>
+									<input name="expired" type="number" id="expired" class="checkout_input" placeholder="mm/YY"/>
+								</div>
+								<hr>
+								<div>
+									<label for="security_code">Security code</label>
+									<input name="security_code" type="number" id="security_code" class="checkout_input" placeholder="1234"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="input-checkbox">
+						<input type="checkbox" id="terms">
+						<label for="terms">
+							<span></span>
+							I've read and accept the <a href="#">terms & conditions</a>
+						</label>
+					</div>
+					<button name="paymentbtn" class="btn checkout_button" type="submit">Payment Now</button>
+				</div>
+				<!-- /Order Details -->
+				</form>
+			{% else %}
+			<h2 class="alert alert-warning text-center">No Order Now , <a href="{% url 'signin' %}">Shopping...</a></h2>
+			{% endif %} 
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+{% endblock %}

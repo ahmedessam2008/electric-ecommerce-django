@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %} {{request.user.username}} | Profile {% endblock %}
+{% block content %}
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<div class="col-md-7">
+				<!-- Billing Details -->
+				<div class="billing-details">
+					<div class="section-title">
+						<h3 class="title">Billing address</h3>
+					</div>
+					{% include "parts/messages.html" %}
+					{% if request.user.is_authenticated %}
+					<form method="POST">
+						{% csrf_token %}
+						<div class="form-group">
+							<input class="input" type="text" name="firstname" placeholder="First Name" value={{firstname}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="lastname" placeholder="Last Name" value={{lastname}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="username" placeholder="User Name" disabled value={{username}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="password" name="password" placeholder="Password" value={{password}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="email" name="email" placeholder="Email" value={{email}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="address" placeholder="Address" value={{address}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="city" placeholder="City" value={{city}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="country" placeholder="Country" value={{country}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="zipcode" placeholder="ZIP Code" value={{zipcode}}>
+						</div>
+						<div class="form-group">
+							<input class="input" type="tel" name="tel" placeholder="Telephone" value={{tel}}>
+						</div>
+						<button type="submit" name="changeinfo" class="btn btn-danger">Change Info</button>
+					</form>
+					{% else %}
+					<h5>You Must Login to view profile info <a class="btn btn-success" href="{% url "signin" %}">Login Now</a></h5>
+					{% endif %}
+				</div>
+				<!-- /Billing Details -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+{% endblock %}

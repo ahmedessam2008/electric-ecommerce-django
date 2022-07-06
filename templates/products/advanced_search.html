@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} | Home{% endblock %}
+{% block content %}
+
+<!-- NEW PRODUCTS SECTION  -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">Advanced Search</h3>
+				</div>
+			</div>
+			<!-- /section title -->
+
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<form action="{% url "store" %}">
+						{{model_form}}
+						<hr>
+						<button type="submit" class="btn btn-danger search-btn">Search</button>
+					</form>
+				</div>
+			</div>
+			<!-- Products tab & slick -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- /HOT DEAL SECTION -->
+
+<!-- TOP SELLING SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">Top selling</h3>
+					<div class="section-nav">
+						<ul class="section-tab-nav tab-nav">
+							<li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
+							<li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
+							<li><a data-toggle="tab" href="#tab2">Cameras</a></li>
+							<li><a data-toggle="tab" href="#tab2">Accessories</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /section title -->
+
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab -->
+						<div id="tab2" class="tab-pane fade in active">
+							<div class="products-slick" data-nav="#slick-nav-2">
+								{% for product in products|slice:'0:8' %}
+                <!-- product -->
+								<div class="product">
+									<div class="product-img">
+                    {% if product.productimage0 %}
+										<a href="{{ product.productimage0.url }}"><img style="width:212.5px;height:212.5px;" src="{{ product.productimage0.url }}" alt="{{ product.title }}"></a>
+                    {% else %}
+                    <img src="./img/default.png" alt="{{ product.title }}">
+                    {% endif %}
+										<div class="product-label">
+											<span class="sale">-{{ product.label_sale }}%</span>
+											<span class="new">{{product.label}}</span>
+										</div>
+									</div>
+									<div class="product-body">
+										<p class="product-category">{{product.category}}</p>
+										<h3 class="product-name"><a href="{% url "one_product" product.id %}">{{product.title}}</a></h3>
+										<h4 class="product-price">${{product.new_price}} <del class="product-old-price">${{product.old_price}}</del></h4>
+										<div class="product-rating">
+											{% if product.rating == 1 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      {% elif product.rating == 2 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      {% elif product.rating == 3 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      {% elif product.rating == 4 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      {% elif product.rating == 5 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      {% endif %}
+										</div>
+										<div class="product-btns">
+											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+										</div>
+									</div>
+									<div class="add-to-cart">
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+									</div>
+								</div>
+								<!-- /product -->
+                {% endfor %}
+							</div>
+							<div id="slick-nav-2" class="products-slick-nav"></div>
+						</div>
+						<!-- /tab -->
+					</div>
+				</div>
+			</div>
+			<!-- /Products tab & slick -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<!-- /SECTION -->
+ {% endblock %}

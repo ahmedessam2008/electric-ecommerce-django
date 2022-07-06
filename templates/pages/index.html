@@ -1,0 +1,473 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} | Home{% endblock %}
+{% block content %}
+
+<!-- SOME PRODUCTS SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<!-- shop -->
+			{% for product in products|slice:"6:9" %}
+			<div class="col-md-4 col-xs-6">
+				<div class="shop">
+					<div class="shop-img">
+						{% if product.productimage0 %}
+						<img src="{{ product.productimage0.url }}" style="width:360px;height:240px;" alt="{{ product.title }}">
+						{% else %}
+						<img src="{% static './img/default.png' %}" alt="{{ product.title }}">
+						{% endif %}
+					</div>
+					<div class="shop-body">
+						<h3>{{ product.category }}<br>Collection</h3>
+						<a href="{% url "one_product" product.id %}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			<!-- /shop -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<!-- NEW PRODUCTS SECTION  -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">New Products</h3>
+					<div class="section-nav">
+						<ul class="section-tab-nav tab-nav">
+							{% for n, cat in category_list %}
+							<li><a data-toggle="{{cat}}" href="#tab1">{{cat|title}}</a></li>
+							{% endfor %}
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /section title -->
+
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab -->
+						<div id="tab1" class="tab-pane active">
+							<div class="products-slick" data-nav="#slick-nav-1">
+								<!-- product -->
+								{% for product in products %}
+								<div class="product">
+									<div class="product-img">
+										{% if product.productimage0 %}
+										<a href="{{ product.productimage0.url }}" target="blank"><img style="width:212.5px;height:212.5px;" src="{{ product.productimage0.url }}" alt="{{ product.title }}"></a>
+										{% else %}
+										<img src="{% static './img/default.png' %}" style="width:212.5px;height:212.5px;" alt="{{ product.title }}">
+										{% endif %}
+										<div class="product-label">
+											<span class="sale">-{{ product.label_sale }}%</span>
+											<span class="new">{{ product.label }}</span>
+										</div>
+									</div>
+									<div class="product-body">
+										<p class="product-category">{{ product.category }}</p>
+										<h3 class="product-name"><a href="#">{{ product.title }}</a></h3>
+										<h4 class="product-price">${{ product.new_price }} <del class="product-old-price">${{ product.old_price }}</del></h4>
+										<div class="product-rating">
+											{% if product.rating == 1 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											{% elif product.rating == 2 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											{% elif product.rating == 3 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											{% elif product.rating == 4 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											{% elif product.rating == 5 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											{% endif %}
+										</div>
+										<div class="product-btns">
+											<a href="{% url "products_favorites" product.id %}" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"></span></a>
+											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+										</div>
+									</div>
+									<div class="add-to-cart">
+										<a href="{% url 'add_to_chart' %}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</a>
+									</div>
+								</div>
+								{% endfor %}
+								<!-- /product -->
+							</div>
+							<div id="slick-nav-1" class="products-slick-nav"></div>
+						</div>
+						<!-- /tab -->
+					</div>
+				</div>
+			</div>
+			<!-- Products tab & slick -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<!-- HOT DEAL SECTION -->
+<div id="hot-deal" class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hot-deal">
+					<ul class="hot-deal-countdown">
+						<li>
+							<div>
+								<h3>02</h3>
+								<span>Days</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<h3>10</h3>
+								<span>Hours</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<h3>34</h3>
+								<span>Mins</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<h3>60</h3>
+								<span>Secs</span>
+							</div>
+						</li>
+					</ul>
+					<h2 class="text-uppercase">hot deal this week</h2>
+					<p>New Collection Up to 50% OFF</p>
+					<a class="primary-btn cta-btn" href="#">Shop now</a>
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /HOT DEAL SECTION -->
+
+<!-- TOP SELLING SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">Top selling</h3>
+					<div class="section-nav">
+						<ul class="section-tab-nav tab-nav">
+							{% for n, cat in category_list %}
+							<li><a data-toggle="{{cat}}" href="#tab1">{{cat|title}}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /section title -->
+
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab -->
+						<div id="tab2" class="tab-pane fade in active">
+							<div class="products-slick" data-nav="#slick-nav-2">
+								<!-- product -->
+								{% for product in products|slice:"0:5" %}
+								<div class="product">
+									<div class="product-img">
+										{% if product.productimage0 %}
+										<a href="{{ product.productimage0.url }}" target="blank"><img style="width:263px;height:263px;" src="{{ product.productimage0.url }}" alt="{{ product.title }}"></a>
+										{% else %}
+										<img src="{% static './img/default.png' %}" style="width:263px;height:263px;" alt="">
+										{% endif %}
+										<div class="product-label">
+											<span class="sale">-{{ product.label_sale }}%</span>
+											<span class="new">{{ product.label }}</span>
+										</div>
+									</div>
+									<div class="product-body">
+										<p class="product-category">{{ product.category }}</p>
+										<h3 class="product-name"><a href="#">{{ product.rating }}</a></h3>
+										<h4 class="product-price">${{ product.new_price }} <del class="product-old-price">${{ product.old_price }}</del></h4>
+										<div class="product-rating">
+											{% if product.rating == 1 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											{% elif product.rating == 2 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											{% elif product.rating == 3 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											{% elif product.rating == 4 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											{% elif product.rating == 5 %}
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											{% endif %}
+										</div>
+										<div class="product-btns">
+											<a href="{% url "products_favorites" product.id %}" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"></span></a>
+											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+										</div>
+									</div>
+									<div class="add-to-cart">
+										<a href="{% url 'add_to_chart' %}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</a>
+									</div>
+								</div>
+								{% endfor %}
+								<!-- /product -->
+
+							</div>
+							<div id="slick-nav-2" class="products-slick-nav"></div>
+						</div>
+						<!-- /tab -->
+					</div>
+				</div>
+			</div>
+			<!-- /Products tab & slick -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<!-- SLIDE SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">Top selling</h4>
+					<div class="section-nav">
+						<div id="slick-nav-3" class="products-slick-nav"></div>
+					</div>
+				</div>
+
+				<div class="products-widget-slick" data-nav="#slick-nav-3">
+					<div>
+						<!-- product widget -->
+						{% for product in products|slice:"1:4" %}
+						<div class="product-widget">
+							<div class="product-img">
+								{% if product.productimage0 %}
+								<a href="{{ product.productimage0.url }}" target="blank"><img src="{{ product.productimage0.url }}" style="width:60px;height:60px;" alt="{{ product.title }}"></a>
+								{% else %}
+								<img src="{% static './img/default.png' %}" style="width:60px;height:60px;" alt="{{ product.title }}">
+								{% endif %}
+							</div>
+							<div class="product-body">
+								<p class="product-category">{{ product.category }}</p>
+								<h3 class="product-name"><a href="#">{{ product.title}}</a></h3>
+								<h4 class="product-price">${{ product.new_price }} <del class="product-old-price">${{ product.old_price }}</del></h4>
+							</div>
+						</div>
+						{% endfor %}
+						<!-- /product widget -->
+					</div>
+
+					<div>
+						<!-- product widget -->
+						{% for product in products|slice:"4:7" %}
+						<div class="product-widget">
+							<div class="product-img">
+								{% if product.productimage0 %}
+								<a href="{{ product.productimage0.url }}" target="blank"><img src="{{ product.productimage0.url }}" style="width:60px;height:60px;" alt="{{ product.title }}"></a>
+								{% else %}
+								<img src="{% static './img/default.png' %}" style="width:60px;height:60px;" alt="{{ product.title }}">
+								{% endif %}
+							</div>
+							<div class="product-body">
+								<p class="product-category">{{ product.category }}</p>
+								<h3 class="product-name"><a href="#">{{ product.title}}</a></h3>
+								<h4 class="product-price">${{ product.new_price }} <del class="product-old-price">${{ product.old_price }}</del></h4>
+							</div>
+						</div>
+						{% endfor %}
+						<!-- product widget -->
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">Top selling</h4>
+					<div class="section-nav">
+						<div id="slick-nav-4" class="products-slick-nav"></div>
+					</div>
+				</div>
+
+				<div class="products-widget-slick" data-nav="#slick-nav-4">
+					<div>
+						<!-- product widget -->
+						{% for product in products|slice:"7:10" %}
+						<div class="product-widget">
+							<div class="product-img">
+								{% if product.productimage0 %}
+								<a href="{{ product.productimage0.url }}" target="blank"><img src="{{ product.productimage0.url }}" style="width:60px;height:60px;" alt="{{ product.title }}"></a>
+								{% else %}
+								<img src="{% static './img/default.png' %}" style="width:60px;height:60px;" alt="{{ product.title }}">
+								{% endif %}
+							</div>
+							<div class="product-body">
+								<p class="product-category">{{ product.category }}</p>
+								<h3 class="product-name"><a href="#">{{ product.title}}</a></h3>
+								<h4 class="product-price">${{ product.new_price }} <del class="product-old-price">${{ product.old_price }}</del></h4>
+							</div>
+						</div>
+						{% endfor %}
+						<!-- product widget -->
+					</div>
+
+					<div>
+						<!-- product widget -->
+						{% for product in products|slice:"10:13" %}
+						<div class="product-widget">
+							<div class="product-img">
+								{% if product.productimage0 %}
+								<a href="{{ product.productimage0.url }}" target="blank"><img src="{{ product.productimage0.url }}" style="width:60px;height:60px;" alt="{{ product.title }}"></a>
+								{% else %}
+								<img src="{% static './img/default.png' %}" style="width:60px;height:60px;" alt="{{ product.title }}">
+								{% endif %}
+							</div>
+							<div class="product-body">
+								<p class="product-category">{{ product.category }}</p>
+								<h3 class="product-name"><a href="#">{{ product.title}}</a></h3>
+								<h4 class="product-price">${{ product.new_price }} <del class="product-old-price">${{ product.old_price }}</del></h4>
+							</div>
+						</div>
+						{% endfor %}
+						<!-- product widget -->
+					</div>
+				</div>
+			</div>
+
+			<div class="clearfix visible-sm visible-xs"></div>
+
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">Top selling</h4>
+					<div class="section-nav">
+						<div id="slick-nav-5" class="products-slick-nav"></div>
+					</div>
+				</div>
+
+				<div class="products-widget-slick" data-nav="#slick-nav-5">
+					<div>
+						<!-- product widget -->
+						{% for product in products|slice:"13:16" %}
+						<div class="product-widget">
+							<div class="product-img">
+								{% if product.productimage0 %}
+								<a href="{{ product.productimage0.url }}" target="blank"><img src="{{ product.productimage0.url }}" style="width:60px;height:60px;" alt="{{ product.title }}"></a>
+								{% else %}
+								<img src="{% static './img/default.png' %}" style="width:60px;height:60px;" alt="{{ product.title }}">
+								{% endif %}
+							</div>
+							<div class="product-body">
+								<p class="product-category">{{ product.category }}</p>
+								<h3 class="product-name"><a href="#">{{ product.title}}</a></h3>
+								<h4 class="product-price">${{ product.new_price }} <del class="product-old-price">${{ product.old_price }}</del></h4>
+							</div>
+						</div>
+						{% endfor %}
+						<!-- product widget -->
+					</div>
+
+					<div>
+						<!-- product widget -->
+						{% for product in products|slice:"17:20" %}
+						<div class="product-widget">
+							<div class="product-img">
+								{% if product.productimage0 %}
+								<a href="{{ product.productimage0.url }}" target="blank"><img src="{{ product.productimage0.url }}" style="width:60px;height:60px;" alt="{{ product.title }}"></a>
+								{% else %}
+								<img src="{% static './img/default.png' %}" style="width:60px;height:60px;" alt="{{ product.title }}">
+								{% endif %}
+							</div>
+							<div class="product-body">
+								<p class="product-category">{{ product.category }}</p>
+								<h3 class="product-name"><a href="#">{{ product.title}}</a></h3>
+								<h4 class="product-price">${{ product.new_price }} <del class="product-old-price">${{ product.old_price }}</del></h4>
+							</div>
+						</div>
+						{% endfor %}
+						<!-- product widget -->
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+ {% endblock %}
